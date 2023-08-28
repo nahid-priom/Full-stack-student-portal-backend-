@@ -1,39 +1,24 @@
 package com.priom.studentsysytem.service;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.priom.studentsysytem.model.Student;
+import com.priom.studentsysytem.repository.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-@Entity
-public class StudentServiceImp {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String name;
-    private String address;
+import java.util.List;
 
-    public int getId() {
-        return id;
+@Service
+public class StudentServiceImp implements StudentService{
+
+    @Autowired
+    private StudentRepository studentRepository;
+    @Override
+    public Student saveStudent(Student student) {
+        return studentRepository.save(student);
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+    @Override
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
     }
 }
